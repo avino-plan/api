@@ -6,4 +6,6 @@
 
 ### 🚀 How to build
 
+```shell
 $ make
+```
