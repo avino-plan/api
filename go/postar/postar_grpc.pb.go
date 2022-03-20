@@ -14,88 +14,88 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// PostarAPIClient is the client API for PostarAPI service.
+// PostarServiceClient is the client API for PostarService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type PostarAPIClient interface {
+type PostarServiceClient interface {
 	// SendEmail send one email.
 	SendEmail(ctx context.Context, in *SendEmailRequest, opts ...grpc.CallOption) (*SendEmailResponse, error)
 }
 
-type postarAPIClient struct {
+type postarServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewPostarAPIClient(cc grpc.ClientConnInterface) PostarAPIClient {
-	return &postarAPIClient{cc}
+func NewPostarServiceClient(cc grpc.ClientConnInterface) PostarServiceClient {
+	return &postarServiceClient{cc}
 }
 
-func (c *postarAPIClient) SendEmail(ctx context.Context, in *SendEmailRequest, opts ...grpc.CallOption) (*SendEmailResponse, error) {
+func (c *postarServiceClient) SendEmail(ctx context.Context, in *SendEmailRequest, opts ...grpc.CallOption) (*SendEmailResponse, error) {
 	out := new(SendEmailResponse)
-	err := c.cc.Invoke(ctx, "/github.com.avinoplan.api.postar.PostarAPI/SendEmail", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/github.com.avinoplan.api.postar.PostarService/SendEmail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// PostarAPIServer is the server API for PostarAPI service.
-// All implementations must embed UnimplementedPostarAPIServer
+// PostarServiceServer is the server API for PostarService service.
+// All implementations must embed UnimplementedPostarServiceServer
 // for forward compatibility
-type PostarAPIServer interface {
+type PostarServiceServer interface {
 	// SendEmail send one email.
 	SendEmail(context.Context, *SendEmailRequest) (*SendEmailResponse, error)
-	mustEmbedUnimplementedPostarAPIServer()
+	mustEmbedUnimplementedPostarServiceServer()
 }
 
-// UnimplementedPostarAPIServer must be embedded to have forward compatible implementations.
-type UnimplementedPostarAPIServer struct {
+// UnimplementedPostarServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedPostarServiceServer struct {
 }
 
-func (UnimplementedPostarAPIServer) SendEmail(context.Context, *SendEmailRequest) (*SendEmailResponse, error) {
+func (UnimplementedPostarServiceServer) SendEmail(context.Context, *SendEmailRequest) (*SendEmailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendEmail not implemented")
 }
-func (UnimplementedPostarAPIServer) mustEmbedUnimplementedPostarAPIServer() {}
+func (UnimplementedPostarServiceServer) mustEmbedUnimplementedPostarServiceServer() {}
 
-// UnsafePostarAPIServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to PostarAPIServer will
+// UnsafePostarServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PostarServiceServer will
 // result in compilation errors.
-type UnsafePostarAPIServer interface {
-	mustEmbedUnimplementedPostarAPIServer()
+type UnsafePostarServiceServer interface {
+	mustEmbedUnimplementedPostarServiceServer()
 }
 
-func RegisterPostarAPIServer(s grpc.ServiceRegistrar, srv PostarAPIServer) {
-	s.RegisterService(&PostarAPI_ServiceDesc, srv)
+func RegisterPostarServiceServer(s grpc.ServiceRegistrar, srv PostarServiceServer) {
+	s.RegisterService(&PostarService_ServiceDesc, srv)
 }
 
-func _PostarAPI_SendEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PostarService_SendEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SendEmailRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PostarAPIServer).SendEmail(ctx, in)
+		return srv.(PostarServiceServer).SendEmail(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/github.com.avinoplan.api.postar.PostarAPI/SendEmail",
+		FullMethod: "/github.com.avinoplan.api.postar.PostarService/SendEmail",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PostarAPIServer).SendEmail(ctx, req.(*SendEmailRequest))
+		return srv.(PostarServiceServer).SendEmail(ctx, req.(*SendEmailRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// PostarAPI_ServiceDesc is the grpc.ServiceDesc for PostarAPI service.
+// PostarService_ServiceDesc is the grpc.ServiceDesc for PostarService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var PostarAPI_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "github.com.avinoplan.api.postar.PostarAPI",
-	HandlerType: (*PostarAPIServer)(nil),
+var PostarService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "github.com.avinoplan.api.postar.PostarService",
+	HandlerType: (*PostarServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SendEmail",
-			Handler:    _PostarAPI_SendEmail_Handler,
+			Handler:    _PostarService_SendEmail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

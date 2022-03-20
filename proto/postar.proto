@@ -38,8 +38,8 @@ message SendEmailResponse {
   string trace_id = 3; // For tracing.
 }
 
-// PostarAPI is the api service of postar.
-service PostarAPI {
+// PostarService is the service of postar.
+service PostarService {
   // SendEmail send one email.
   rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
 }
