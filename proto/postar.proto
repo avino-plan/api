@@ -9,7 +9,7 @@ package github.com.avinoplan.api.postar;
 import "base.proto";
 
 // protoc -I=. --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative postar.proto
-option go_package = "github.com/avino-plan/api/go/postar";
+option go_package = "github.com/avino-plan/api/go-out/postar";
 
 // Email wraps all information of using smtp service.
 message Email {
