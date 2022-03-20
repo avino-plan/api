@@ -22,7 +22,7 @@ message Email {
 // SendEmailOptions is the options of sending emails.
 message SendEmailOptions {
   bool async = 1; // Sending this email asynchronously.
-  int32 timeout = 2; // Sending timeout in seconds.
+  int32 timeout_millis = 2; // Sending timeout in ms.
 }
 
 // SendEmailRequest is the request of SendEmail.
