@@ -1,4 +1,4 @@
-module github.com/avino-plan/api/go
+module github.com/avino-plan/api
 
 go 1.15
 
